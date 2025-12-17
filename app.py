@@ -1,15 +1,13 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns # Agregado para que funcione el heatmap
+import seaborn as sns 
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 # 3. Carga del dataset
 try:
-    # Nota: Asegúrate de que tu CSV tenga los nombres de columnas en minúsculas 
-    # si no, cámbialos en el código (ej. 'age' por 'Age')
     df = pd.read_csv('titanic.csv') 
     print("Archivo cargado exitosamente")
 except FileNotFoundError:
@@ -17,7 +15,7 @@ except FileNotFoundError:
 
 # 4. Preprocesamiento
 # 4.1 Limpieza de nulos
-# Eliminamos columnas con demasiados nulos o redundantes
+# Eliminamos columnas con demasiados nulos
 cols_to_drop = [c for c in ['deck', 'embark_town', 'alive', 'who', 'adult_male', 'cabin', 'name', 'ticket'] if c in df.columns]
 df = df.drop(columns=cols_to_drop)
 
@@ -36,7 +34,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 # 6 & 7. Selección y Entrenamiento
 modelo = DecisionTreeClassifier(max_depth=3, random_state=42)
-modelo.fit(X_train, y_train) # Ahora sí funcionará
+modelo.fit(X_train, y_train) 
 
 # 8. Evaluación
 y_pred = modelo.predict(X_test)
@@ -52,5 +50,6 @@ plt.title('Matriz de Confusión')
 plt.xlabel('Predicho')
 plt.ylabel('Real')
 plt.show()
+
 
 print("\nReporte de Clasificación:\n", classification_report(y_test, y_pred))
